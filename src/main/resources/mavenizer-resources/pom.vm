@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.dextratech.dtf</groupId>
+	<artifactId>$projectName</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+
+	<properties>
+		<webapp-dir>$webDir</webapp-dir>
+		<repo-dir>$repoDir</repo-dir>
+		<webinf-dir>${webapp-dir}/WEB-INF</webinf-dir>
+		
+		<tomcat.servlet.version>7.0.30</tomcat.servlet.version>
+		<jsp.api.version>2.1</jsp.api.version>
+	</properties>
+
+	<build>
+		<resources>
+#foreach($srcDir in $srcDirList)
+			<resource>
+				<directory>$srcDir</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+#end
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<warSourceDirectory>${webapp-dir}</warSourceDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>build-helper-maven-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <phase>generate-sources</phase>
+			            <goals><goal>add-source</goal></goals>
+			            <configuration>
+			                <sources>
+#foreach($srcDir in $srcDirList)
+								<source>$srcDir</source>
+#end
+			                </sources>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+			<plugin>
+		        <groupId>org.apache.tomcat.maven</groupId>
+		        <artifactId>tomcat7-maven-plugin</artifactId>
+		        <version>2.0</version>
+		        <configuration>
+					<server>tomcat-development-server</server>
+					<port>9966</port>
+					<path>/$projectName</path>
+					<warSourceDirectory>${webapp-dir}</warSourceDirectory>
+		        </configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>${tomcat.servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp.api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+#foreach($dependency in $dependencyList)
+		<dependency>
+			<groupId>$dependency.groupId</groupId>
+			<artifactId>$dependency.artifactId</artifactId>
+			<version>$dependency.version</version>
+			<scope>system</scope>
+			<systemPath>${repo-dir}/$dependency.systemPath</systemPath>
+		</dependency>
+#end
+	</dependencies>
+</project>
