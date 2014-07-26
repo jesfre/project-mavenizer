@@ -25,6 +25,8 @@
     </licenses>
 	
 	<properties>
+		<final-package.filename>project-mavenizer-pack.zip</final-package.filename>
+		
 		<maven.version>3.2.2</maven.version>
 		<velocity.version>1.7</velocity.version>
 		<commons.lang.version>2.6</commons.lang.version>
@@ -34,6 +36,12 @@
 	
 	<build>
 		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<includes>
+					<include>**/**</include>
+				</includes>
+			</resource>
 			<resource>
 				<directory>${basedir}</directory>
 				<includes>
@@ -87,6 +95,36 @@
 						<goals>
 							<goal>verify</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>copy-to-final-package</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo>==========	Building the final package	==========</echo>
+								<echo>Copying "dtf-project-archetype" files to ${final-package.location}</echo>
+								<zip destfile="${basedir}/${final-package.filename}" update="true">
+									<fileset dir="${basedir}/src/test/resources">
+										<include name="sample.properties"/>
+										<include name="NonStandardWebProject/**" />
+									</fileset>
+									<fileset dir="${project.build.directory}/">
+										<include name="${project.artifactId}-${project.version}.jar" />
+									</fileset>
+								</zip>
+								<echo>Builded ${final-package.filename}.</echo>
+							</tasks>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

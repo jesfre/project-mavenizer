@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -106,18 +107,10 @@ public class MavenizerUtil {
 	 */
 	private Dependency getDependency(String fileName) {
 		String artifactId, groupId, version = "";
-		int extIndex = fileName.lastIndexOf('.');
-		int verIndex = fileName.indexOf('.');
-		artifactId = fileName.substring(0, verIndex);
-		verIndex = artifactId.lastIndexOf('-');
+		String  basename = FilenameUtils.getBaseName(fileName);
 
-		if (verIndex > 1) {
-			groupId = artifactId = artifactId.substring(0, verIndex);
-			version = fileName.substring(verIndex + 1, extIndex);
-		} else {
-			groupId = artifactId;
-			version = "1";
-		}
+		groupId = artifactId= basename;
+		version = "1.0";
 		Dependency dependency = new Dependency();
 		dependency.setSystemPath(fileName);
 		dependency.setGroupId(groupId);

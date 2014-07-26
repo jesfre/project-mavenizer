@@ -6,6 +6,7 @@ package com.blogspot.jesfre.projectmavenizer;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,10 @@ public class MavenizationTest {
 	@Test
 	public void testMavenizeMe() {
 		Main main = new Main();
-		//		main.mavenizeMe("E:\\dev\\projects\\opensources\\project-mavenizer\\src\\test\\resources\\sample.properties");
+		URL proUrl = MavenizationTest.class.getClassLoader().getResource("sample.properties");
+		String filePath = proUrl.getFile();
+		String generatedPom = main.mavenizeMe(filePath);
+		assertTrue(new File(generatedPom).exists());
 	}
 
 }
