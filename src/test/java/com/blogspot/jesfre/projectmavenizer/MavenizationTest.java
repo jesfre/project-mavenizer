@@ -12,7 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author <a href="jorge.ruiz@citi.com.mx">Jorge Ruiz Aquino</a>
+ * The Class MavenizationTest.
+ *
+ * @author <a href="jorge.ruiz.aquino@gmail.com">Jorge Ruiz Aquino</a>
  * 24/07/2014
  */
 public class MavenizationTest {

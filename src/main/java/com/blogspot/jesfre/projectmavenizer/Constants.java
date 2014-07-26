@@ -5,7 +5,7 @@ package com.blogspot.jesfre.projectmavenizer;
 
 /**
  * Constant values
- * @author <a href="jorge.ruiz@citi.com.mx">Jorge Ruiz Aquino</a>
+ * @author <a href="jorge.ruiz.aquino@gmail.com">Jorge Ruiz Aquino</a>
  * 24/07/2014
  */
 public final class Constants {
