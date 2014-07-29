@@ -25,10 +25,10 @@ public class Main {
 		String propertiesLocation = FilenameUtils.getFullPath(jarLocation);
 
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Set the properties file name: ");
-		String propertiesFilename = scanner.next();
+		System.out.println("Set the properties file name. <Enter> to use sample.properties: ");
+		String propertiesFilename = scanner.nextLine();
 		if(StringUtils.isBlank(propertiesFilename)) {
-			propertiesFilename = "myproject.properties";
+			propertiesFilename = "sample.properties";
 		}
 		propertiesLocation += propertiesFilename;
 

@@ -3,7 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.blogspot.jesfre</groupId>
 	<artifactId>project-mavenizer</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
+	
+	<description>
+		A simple tool to add Maven nature to a non-standard Web project.
+	</description>
 	
 	<developers>
 		<developer>
